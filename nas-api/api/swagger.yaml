@@ -4,7 +4,7 @@ info:
   version: "1.0.0"
   title: "IP Whitelisting Services"
 host: "dns_name"
-basePath: "/iws/api/v2"
+basePath: "/nas/api/v2"
 tags:
 - name: "request"
   description: "IP allow list requests operations"

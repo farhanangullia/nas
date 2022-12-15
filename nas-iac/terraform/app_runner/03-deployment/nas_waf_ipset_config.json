@@ -2,8 +2,8 @@
     "485515729987": {
       "AwsAccountId": "485515729987",
       "AwsAccountName": "angullia@amazon.com",
-      "Name": "iws-ipv4",
+      "Name": "nas-ipv4",
       "Id": "8ca3a108-121f-40d1-8f92-4ddf7547f1e1",
-      "IamRole": "arn:aws:iam::485515729987:role/iws-waf-ipset-role"
+      "IamRole": "arn:aws:iam::485515729987:role/nas-waf-ipset-role"
     }
   }

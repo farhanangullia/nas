@@ -1,4 +1,4 @@
-module iws
+module nas
 
 go 1.19
 
