@@ -2,11 +2,11 @@
 
 This monorepo is a collection of components and services which makes up the network access service.
 
-`nas-api` is a Go HTTP serving application for interacting with clients. It conforms to the clean architecture approach and leverages on Go kit framework.
+`nas-api` is a HTTP serving application written in Go for interacting with clients. It conforms to the clean architecture approach and leverages on Go kit framework.
 
-`nas-consumers` contains event driven serverless functions for executing business logic and serverless framework templates for deployments.
+`nas-consumers` contains event driven serverless functions written in Python for executing business logic and serverless framework templates for deployments.
 
-`nas-iac` contains infrastructure as code (Terraform) to deploy the services.
+`nas-iac` contains infrastructure as code written in Terraform to deploy the services.
 
 ## CI
 
