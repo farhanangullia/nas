@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "bc3c2ab3-523e-4d9c-9bf3-f6101d3a911b",
+		"name": "nas-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/iws/api/v2/healthz",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/iws/api/v2/healthz",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"iws",
+						"api",
+						"v2",
+						"healthz"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/iws/api/v2/request/findByRequestId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"requestId\": \"7d3952eb-c5fe-4108-bdac-724b0e733fa8\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/iws/api/v2/request/findByRequestId",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"iws",
+						"api",
+						"v2",
+						"request",
+						"findByRequestId"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/iws/api/v2/request",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ipAddress\": \n        {\n            \"ip\": \"12.12.12.12/32\",\n            \"type\": \"time-bounded\",\n            \"awsAccountId\": \"485515729987\",\n            \"expiry\": 1670956200,\n            \"requestor\": \"farhan.angullia\",\n            \"approver\": \"farhan.angullia\"\n        }\n        \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/iws/api/v2/request",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"iws",
+						"api",
+						"v2",
+						"request"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/iws/api/v2/allowlist/findIpAddressByIp",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"ipAddress\": \"12.12.12.12/32\",\n    \"awsAccountId\": \"485515729987\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/iws/api/v2/allowlist/findIpAddressByIp",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"iws",
+						"api",
+						"v2",
+						"allowlist",
+						"findIpAddressByIp"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

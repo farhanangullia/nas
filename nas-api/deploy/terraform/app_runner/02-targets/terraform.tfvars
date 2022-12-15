@@ -1,0 +1,2 @@
+# Target
+trusted_lambda_role_arns = ["arn:aws:iam::REPLACE_ME_WITH_ACCOUNT_ID:role/nas-lambda-ip-retention-handler-role", "arn:aws:iam::REPLACE_ME_WITH_ACCOUNT_ID:role/nas-lambda-ip-expiry-handler-role"]

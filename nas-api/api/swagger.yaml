@@ -1,0 +1,296 @@
+swagger: "2.0"
+info:
+  description: "APIs to power the self-serve ip whitelisting client."
+  version: "1.0.0"
+  title: "IP Whitelisting Services"
+host: "dns_name"
+basePath: "/iws/api/v2"
+tags:
+- name: "request"
+  description: "IP allow list requests operations"
+- name: "allowlist"
+  description: "IP allow list operations"
+schemes:
+- "https"
+paths:
+  /request:
+    post:
+      tags:
+      - "request"
+      summary: "Add a request for IP be added to allowlist"
+      description: ""
+      operationId: "addIpAccessRequest"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "IPAccessRequest object that needs to be added"
+        required: true
+        schema:
+          type: object
+          required:
+            - ipAddress
+          properties:
+            ipAddress:
+              $ref: "#/definitions/IpAddress"
+      responses:
+        "200":
+          description: "Successful Operation"
+          schema:
+            $ref: "#/definitions/IPAccessRequestApiResponse"
+        "405":
+          description: "Invalid input"
+      deprecated: false
+  /request/findByRequestId:
+    get:
+      tags:
+      - "request"
+      summary: "Finds IPAccessRequest by request id"
+      description: "Retrieve ip access request by request id"
+      operationId: "findIpAccessRequestByRequestId"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Request id to retrieve"
+        required: true
+        schema:
+          type: object
+          required:
+            - requestId
+          properties:
+            requestId:
+              type: string
+              description: "ID of request"
+      responses:
+        "200":
+          description: "Successful Operation"
+          schema:
+            $ref: "#/definitions/FindIPAccessRequestByIdApiResponse"
+        "400":
+          description: "Invalid id or status value"
+      deprecated: false
+  /request/findAllRequestsByRequestor:
+    get:
+      tags:
+      - "request"
+      summary: "Finds all IPAccessRequest by requestor"
+      description: "Retrieve list of ip access requests by requestor"
+      operationId: "findAllIpAccessRequestsByRequestor"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Requests to retrieve"
+        required: true
+        schema:
+          type: object
+          required:
+            - requestor
+          properties:
+            requestor:
+              type: string
+              description: "id of requestor"
+      responses:
+        "200":
+          description: "Successful Operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/IPAccessRequest"
+        "400":
+          description: "Invalid id or status value"
+      deprecated: false
+  /allowlist:
+    post:
+      tags:
+      - "allowlist"
+      summary: "Adds an IP to the allowlist"
+      description: ""
+      operationId: "addIpAddress"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "IpAddress object that needs to be added"
+        required: true
+        schema:
+          $ref: "#/definitions/IpAddress"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/ApiResponse"
+        "405":
+          description: "Invalid input"
+      security:
+      - api_key: []
+      deprecated: false
+    delete:
+      tags:
+      - "allowlist"
+      summary: "Revokes an IP in the allowlist"
+      description: ""
+      operationId: "revokeIpAddress"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: body
+        name: ipAddress
+        description: The IP address to be retrieved.
+        schema:
+          type: object
+          required:
+            - ipAddress
+            - awsAccountId
+          properties:
+            ipAddress:
+              type: string
+              format: ipv4
+            awsAccountId:
+              type: string
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/IpAddress"
+        "400":
+          description: "Invalid parameters"
+        "404":
+          description: "IP not found in allowlist"
+      deprecated: false
+  /allowlist/findIpAddressByIp:
+    get:
+      tags:
+      - "allowlist"
+      summary: "Find IP address in allowlist"
+      description: "Returns a single ip address object"
+      operationId: "findIpAddressByIp"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: body
+        name: ipAddress
+        description: The IP address to be retrieved.
+        schema:
+          type: object
+          required:
+            - ipAddress
+            - awsAccountId
+          properties:
+            ipAddress:
+              type: string
+              format: ipv4
+            awsAccountId:
+              type: string
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/IpAddress"
+        "400":
+          description: "Invalid parameters"
+        "404":
+          description: "IP not found in allowlist"
+      deprecated: false
+securityDefinitions:
+  api_key:
+    type: "apiKey"
+    name: "api_key"
+    in: "header"
+definitions:
+  IPAccessRequestApiResponse:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Request ID"
+    xml:
+      name: "IPAccessRequestResponse"
+  FindIPAccessRequestByIdApiResponse:
+    type: "object"
+    properties:
+      ipAccessRequest:
+        type: "object"
+        description: "IP Access Request"
+        $ref: "#/definitions/IPAccessRequest"
+    xml:
+      name: "FindIPAccessRequestByIdApiResponse"
+  IPAccessRequest:
+    type: "object"
+    properties:
+      id:
+        type: "string"
+        description: "Request ID"
+      ipAddress:
+          $ref: "#/definitions/IpAddress"
+      status:
+        type: "array"
+        items:
+          type: "string"
+          enum:
+          - "COMPLETED"
+          - "FAILED"
+          - "PENDING"
+      dateRequested:
+        type: "string"
+        format: "date-time"
+    xml:
+      name: "IPAccessRequest"
+  IpAddress:
+    type: "object"
+    properties:
+      ip:
+        type: "string"
+        format: ipv4
+        description: "IP address"
+      type:
+        type: "string"
+        description: "Type of IP address"
+        enum:
+        - "persistent"
+        - "time-bounded"
+      awsAccountId:
+        type: "string"
+        description: "AWS Account ID for allow list"
+      expiry:
+        type: "integer"
+        format: "int32"
+        description: "Expiry in epochs for time-bounded IPs"
+      requestor:
+        type: "string"
+        description: "Id of the requestor"
+      approver:
+        type: "string"
+        description: "Id of the approver"
+    xml:
+      name: "IpAddress"
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about the APIs"
+  url: ""

@@ -1,0 +1,7 @@
+main
+TODO.md
+.env
+
+deploy/terraform/local
+terraform.tfstate*
+.terraform*
